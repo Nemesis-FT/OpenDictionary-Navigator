@@ -7,17 +7,19 @@ import {faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import ServerFav from "./ServerFav";
 import schema from "./config";
+import {useTranslation, Trans} from 'react-i18next';
 
 export default function ServerSelector() {
     const [address, setAddress] = useState("");
     const [isValid, setIsValid] = useState(false);
     const [isChecking, setIsChecking] = useState(false);
-    const [server, setServer] = useState(null);
-    const {instanceIp, setInstanceIp} = useAppContext();
     const {connected, setConnected} = useAppContext();
+    const {instanceIp, setInstanceIp} = useAppContext();
+    const {instanceData, setInstanceData} = useAppContext();
     const [favList, setFavList] = useState([])
     const [hidden, setHidden] = useState(true)
     let history = useHistory();
+    const {t, i18n} = useTranslation();
 
 
     useEffect(() => {
@@ -27,6 +29,10 @@ export default function ServerSelector() {
     useEffect(() => {
         if (localStorage.getItem("favs")) {
             let favs = JSON.parse(localStorage.getItem("favs"))
+            console.debug(favs)
+            if(favs.length===0){
+                favs=null;
+            }
             setFavList(favs)
         }
 
@@ -34,9 +40,14 @@ export default function ServerSelector() {
 
 
     async function conn_check() {
+        if(address===""){
+            setInstanceData(null)
+            setIsValid(false);
+            return;
+        }
         setIsChecking(true);
         try {
-            const response = await fetch(schema + address + "/server/planetarium", {
+            const response = await fetch(schema + address + "/api/server/v1/planetarium", {
                 method: "GET",
                 credentials: "include",
                 headers: {
@@ -48,13 +59,7 @@ export default function ServerSelector() {
             if (response.status === 200) {
                 let values = await response.json()
                 console.debug(values.server)
-                setServer({
-                    name: values.server.name,
-                    university: values.server.university,
-                    type: values.type,
-                    version: values.version,
-                })
-                console.debug(server)
+                setInstanceData(values)
                 setIsChecking(false)
                 setIsValid(true)
 
@@ -74,8 +79,9 @@ export default function ServerSelector() {
         setInstanceIp(address)
         localStorage.setItem("instanceIp", address)
         setConnected(true)
-        console.debug("Collegamento a " + address)
+        console.debug("Connecting... " + address)
         history.push("/od/" + address)
+        localStorage.setItem("instanceIp", address);
     }
 
     return (
@@ -85,22 +91,20 @@ export default function ServerSelector() {
                 <Form>
                     <Form.Row>
                         <Form.Field onSimpleChange={e => setAddress(e)} value={address} required={true}
-                                    placeholder={"opendictionary.site.org"} label={"Indirizzo istanza"} validity={isValid}>
+                                    placeholder={"opendictionary.site.org"} label={t("root.form_names.instance_address")} validity={isValid}>
                         </Form.Field>
                     </Form.Row>
                 </Form>
                 <Form.Row>
                     {isChecking ? (
-                        <div>Verifica in corso...</div>
-                    ) : (
-                        <br/>
-                    )}
+                        <div>{t("root.status_msgs.checking")}</div>
+                    ):(<div/>)}
 
                     {isValid ? (
                         <div>
                             <Dialog bluelibClassNames={"color-lime"} style={{minWidth: "unset"}}>
-                                {server.name} ({server.university})
-                                <p> {server.type} v. {server.version} </p>
+                                {instanceData.server.name}
+                                <p> {instanceData.type} v. {instanceData.version} </p>
                             </Dialog>
                         </div>
                     ) : (
@@ -109,7 +113,7 @@ export default function ServerSelector() {
                         </div>
                     )}
 
-                    <Button children={"Connettiti"} disabled={!isValid} onClick={e => connect()}>
+                    <Button children={t("root.buttons.connect")} disabled={!isValid} onClick={e => connect()}>
 
                     </Button>
                 </Form.Row>
@@ -119,22 +123,18 @@ export default function ServerSelector() {
                 setHidden(!hidden)
             }}><FontAwesomeIcon icon={faQuestionCircle}/></Button>
             {hidden ? (<div></div>) : (
-                <p> Il navigatore ti consente di esplorare la costellazione di istanze di Erre2, appartenenti a
-                    diversi
-                    gruppi di studenti. Per consultare i riassunti di un certo gruppo, devi inserire l'indirizzo
-                    dell'istanza
-                    corrispondente. E' possibile far registrare la propria istanza all'interno della costellazione
-                    ufficiale di
-                    Erre2, e questa sarà raggiungibile dal servizio "Planetario".</p>)}
+                <p>
+                    {t("root.descriptions.blob")}
+                </p>)}
 
-            <Box className={Style.Scrollable} style={{minWidth: "unset"}}>
+
                 {favList ? (
+                    <Box className={Style.Scrollable} style={{minWidth: "unset"}}>
                     <div>{favList.map(fav => <ServerFav fav={fav} setFav={setFavList} favList={favList}/>)}</div>
+                    </Box>
                 ) : (
-                    <p>Nessun server tra i preferiti. Per aggiungerne, clicca sulla stella di fianco al nome di un
-                        server.</p>
+                   <div/>
                 )}
-            </Box>
         </div>
     );
 }

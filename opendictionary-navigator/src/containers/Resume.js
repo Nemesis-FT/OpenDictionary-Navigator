@@ -19,7 +19,7 @@ export default function Resume(props) {
         if(address){
             setInstanceIp(address)
             setConnected(true)
-            history.push("/erre2/"+address)
+            history.push("/od/"+address)
         }
         else{
             history.push("/")

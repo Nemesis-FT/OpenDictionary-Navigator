@@ -2,15 +2,18 @@ import Routes from "./Routes";
 import './App.css';
 import {AppContext} from "./libs/Context"
 import React, {useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, withRouter} from "react-router-dom";
 import {Bluelib, Footer} from "@steffo/bluelib-react";
 import {Button, Select, Panel, LayoutThreeCol} from "@steffo/bluelib-react";
 import {useTranslation, Trans} from 'react-i18next';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faLanguage} from "@fortawesome/free-solid-svg-icons";
 import "./i18n"
+import schema from "./containers/config";
+import Modal from "./containers/components/Modal";
 
 function App() {
+    const history = useHistory();
     const [instanceIp, setInstanceIp] = useState("");
     const [user, setUser] = useState(null);
     const [instanceData, setInstanceData] = useState(null);
@@ -18,30 +21,29 @@ function App() {
     const [token, setToken] = useState("")
     const [hidden, setHidden] = useState(true)
     const [language, setLanguage] = useState("en")
-    let history = useHistory();
+    const [mode, setMode] = useState("main");
+
     const {t, i18n} = useTranslation();
     const lngs = {
         en: {nativeName: 'English'},
         it: {nativeName: 'Italiano'}
     };
+
     useEffect(() => {
         onLoad();
     }, []);
 
-    function onLoad() {
-        if (localStorage.getItem("instanceIp") && history) {
-            setInstanceIp(localStorage.getItem("instanceIp"))
-            setConnected(true)
-            history.push("/od/" + instanceIp)
-        }
+
+
+    async function onLoad() {
+        document.body.style = 'background: #161616;';
         let a = localStorage.getItem("lang")
         if (a) {
-            i18n.changeLanguage(a)
+            await i18n.changeLanguage(a)
             setLanguage(a)
         } else {
             setLang("en")
         }
-        document.body.style = 'background: #112031;';
     }
 
     function setLang(lang) {
@@ -52,9 +54,7 @@ function App() {
 
 
     return (
-
-
-        <Bluelib theme={"amber"} backgroundColor={"#112031"} accentColor={"#D4ECDD"} foregroundColor={"#93B5C6"}>
+        <Bluelib theme={"amber"} backgroundColor={"#161616"} accentColor={"#346751"} foregroundColor={"#ECDBBA"}>
             <LayoutThreeCol>
                 <LayoutThreeCol.Center>
                 <div className="App">
@@ -68,7 +68,9 @@ function App() {
                         instanceData,
                         setInstanceData,
                         user,
-                        setUser
+                        setUser,
+                        mode,
+                        setMode
                     }}>
                         <Routes/>
 
