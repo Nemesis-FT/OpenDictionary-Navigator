@@ -4,6 +4,7 @@ import Home from "./containers/Home"
 import NotFound from "./containers/NotFound";
 import Dashboard from "./containers/instance/Dashboard";
 import Resume from "./containers/Resume";
+import EntryRedirect from "./containers/instance/entries/EntryRedirect";
 export default function Routes() {
     return (
         <BrowserRouter>
@@ -14,6 +15,9 @@ export default function Routes() {
                 <Route exact path ="/od" children={<Resume/>}/>
                 <Route exact path="/od/:url" element={<Dashboard/>}>
                     <Dashboard/>
+                </Route>
+                <Route exact path="/od/:url/t/:id" element={<EntryRedirect/>}>
+                    <EntryRedirect/>
                 </Route>
                 <Route>
                     <NotFound/>

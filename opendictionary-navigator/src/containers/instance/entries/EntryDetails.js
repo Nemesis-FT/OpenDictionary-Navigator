@@ -19,7 +19,7 @@ export default function EntryDetails(props) {
             </Panel>
             <hr/>
             <p>
-                {t("dashboard.entry.part")} {props.entry.dictionary.name} {t("dashboard.entry.for")} {props.entry.dictionary.language} {t("dashboard.entry.language")}.
+                {t("dashboard.entry.part")} {props.entry.dictionary.name} {t("dashboard.entry.for")} {props.entry.dictionary.language} {t("dashboard.entry.language")}.{" "}
                 {t("dashboard.entry.created")} {props.entry.author.username}.
             </p>
 

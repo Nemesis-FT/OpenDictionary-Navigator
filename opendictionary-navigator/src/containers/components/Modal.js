@@ -22,13 +22,7 @@ const Modal = ({ modalStyle, children, show, onClose, backdropStyle }) => {
     return (
         <React.Fragment>
             <div ref={modalRef} style={backdropStyle} className={`${styles.modal__wrap}`}>
-                <Button
-                    onClick={onClose}
-                    style={{ width: 60, height: 40, position: 'absolute', top: 0, right: 0, margin: '1rem' }}
-                    className={styles.close__btn}
-                >
-                    <FontAwesomeIcon icon={faClose} className={styles.close__icon} height="20px" width="20px"/>
-                </Button>
+
                 <div style={{
                     "overflowX": "hidden",
                     "position": "relative",
@@ -40,18 +34,26 @@ const Modal = ({ modalStyle, children, show, onClose, backdropStyle }) => {
                     "margin": "0 auto",
                     "marginTop": "20px",
                     "marginBottom": "20px",
-                    "borderRadius": "4px",
+                    "borderRadius": "10px",
                     "paddingBottom": "20px",
                     "alignSelf": "center",
-                    "boxShadow": "0 0 2rem 0 rgba(199, 175, 189, .25)",
-                    "opacity": "100",
-                    "transition": "opacity 250ms 250ms ease, transform 300ms 250ms ease",
+                    "boxShadow": "0 0 2rem 0 rgba(var(--bluelib-foreground-r), var(--bluelib-foreground-g), var(--bluelib-foreground-b, .25)",
+                    "opacity": "1",
+                    "transition": "opacity 25ms 25ms ease",
                     "transform": "scale(1)",
-                    "background": document.body.style.background
+                    "background": "rgba(var(--bluelib-background-r), var(--bluelib-background-g), var(--bluelib-background-b), 1.0)",
                 }} className={styles.modal}>
+                    <Button
+                        onMouseDown={onClose}
+                        style={{ width: 60, height: 40, position: 'absolute', top: 0, right: 0, margin: '1rem' }}
+                        className={styles.close__btn}
+                    >
+                        <FontAwesomeIcon icon={faClose} className={styles.close__icon} height="20px" width="20px"/>
+                    </Button>
                     <div style={{
                         "margin":"20px",
                     }}>
+
                         {children}
                     </div>
                 </div>
