@@ -24,8 +24,10 @@ export default function ProfileBadge() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setUserData(await response.json());
+                let data = await response.json()
+                setUserData(data);
                 setToken(token);
+                console.debug(data)
             } catch (e) {
                 console.error(e);
             }

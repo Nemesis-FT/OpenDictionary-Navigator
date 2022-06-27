@@ -9,6 +9,7 @@ import Dictionary from "../dictionaries/Dictionary";
 import Entry from "./Entry";
 import Modal from "../../components/Modal";
 import EntryDetails from "./EntryDetails";
+import EntryEdit from "./EntryEdit";
 
 export default function EntrySearcher(props) {
     const {t, i18n} = useTranslation();
@@ -21,6 +22,7 @@ export default function EntrySearcher(props) {
     const [results, setResults] = useState(null)
     const [enabled, setEnabled] = useState(false)
     const [show, setShow] = useState(false)
+    const [edit, setEdit] = useState(false)
     const [id, setId] = useState(null)
     const [entry, setEntry] = useState(null)
 
@@ -33,7 +35,9 @@ export default function EntrySearcher(props) {
     useEffect(() =>{
         if(id!==null){
             lookup()
-            setShow(true)
+            if(!edit){
+                setShow(true)
+            }
         }
     }, [id])
 
@@ -45,6 +49,11 @@ export default function EntrySearcher(props) {
 
     function cleanup(){
         setShow(false);
+        setId(null);
+    }
+
+    function cleanupEdit(){
+        setEdit(false);
         setId(null);
     }
 
@@ -105,7 +114,7 @@ export default function EntrySearcher(props) {
                 {results && props.mode==="search" ? (
                     <div>
                         <SearchControls maxPages={maxPages} setPage={setPage} page={page}/>
-                        <Chapter>{results.map(result => <Entry entry={result} setId={setId} key={result.id}/>)}</Chapter>
+                        <Chapter>{results.map(result => <Entry entry={result} setId={setId} setEdit={setEdit} key={result.id}/>)}</Chapter>
                     </div>
 
                 ) : (
@@ -121,6 +130,15 @@ export default function EntrySearcher(props) {
                     </Panel>
                 )}
 
+            </Modal>
+            <Modal show={edit} onClose={()=>{cleanupEdit()}}>
+                {entry ? (
+                    <EntryEdit entry={entry}/>
+                ) : (
+                    <Panel>
+                        {t("dashboard.entry.loading")}
+                    </Panel>
+                )}
             </Modal>
         </div>
     );
