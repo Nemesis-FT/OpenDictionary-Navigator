@@ -10,6 +10,9 @@ import Entry from "./Entry";
 import Modal from "../../components/Modal";
 import EntryDetails from "./EntryDetails";
 import EntryEdit from "./EntryEdit";
+import EntryAdd from "./EntryAdd";
+import {faAdd} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export default function EntrySearcher(props) {
     const {t, i18n} = useTranslation();
@@ -25,6 +28,8 @@ export default function EntrySearcher(props) {
     const [edit, setEdit] = useState(false)
     const [id, setId] = useState(null)
     const [entry, setEntry] = useState(null)
+    const [add, setAdd] = useState(false)
+    const [redraw, setRedraw] = useState(false)
 
     useEffect(() => {
         if (enabled) {
@@ -55,6 +60,11 @@ export default function EntrySearcher(props) {
     function cleanupEdit(){
         setEdit(false);
         setId(null);
+        seek();
+    }
+
+    function cleanupAdd(){
+        setAdd(false);
     }
 
     async function seek() {
@@ -109,7 +119,7 @@ export default function EntrySearcher(props) {
                 <Button onClick={event => {
                     search_start()
                 }}>{t("dashboard.button.search")}</Button>
-            </Panel>
+
             <div>
                 {results && props.mode==="search" ? (
                     <div>
@@ -118,9 +128,15 @@ export default function EntrySearcher(props) {
                     </div>
 
                 ) : (
-                    <div/>
+                    <div>
+                        <br/>
+                    <Button onClick={event => {
+                        setAdd(true)
+                    }}><FontAwesomeIcon icon={faAdd}/></Button>
+                    </div>
                 )}
             </div>
+            </Panel>
             <Modal show={show} onClose={()=>{cleanup()}}>
                 {entry ? (
                     <EntryDetails entry={entry}/>
@@ -139,6 +155,9 @@ export default function EntrySearcher(props) {
                         {t("dashboard.entry.loading")}
                     </Panel>
                 )}
+            </Modal>
+            <Modal show={add} onClose={()=>{cleanupAdd()}}>
+                <EntryAdd/>
             </Modal>
         </div>
     );

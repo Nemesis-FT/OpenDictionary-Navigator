@@ -18,7 +18,6 @@ export default function Dictionary(props) {
                 {userData && userData.admin_of.length != 0 && (
                     <div>
                         <Button onClick={event => {
-                            console.debug("PROPS: "+props.dictionary.id+" "+props.dictionary.name)
                             props.setId(props.dictionary.id);
                         }}><FontAwesomeIcon icon={faPencil}/></Button>
                     </div>

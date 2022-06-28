@@ -42,14 +42,34 @@ i18n
                             part: "Part of",
                             for: "for the",
                             language: "language",
-                            created: "Created by "
+                            created: "Created by ",
+                            create: "Add new entry",
+                            definition: "Definition",
+                            term: "Term",
+                            dictionary: "Dictionary",
+                            examples: "Examples",
+                            create_btn: "Create entry",
+                            edit: "Editing ",
+                            update_btn: "Update entry",
+                            conn: "Connect to the instance",
+
                         },
                         button:{
                             search: "Search",
                             back: "Back to menu",
                         },
                         dictionaries:{
-                            list: "Consult one of the dictionaries"
+                            list: "Available dictionaries",
+                            edit: "Editing ",
+                            create: "Create a new dictionary",
+                            name: "Name",
+                            language: "Language",
+                            update_btn: "Update dictionary",
+                            create_btn: "Create dictionary"
+                        },
+                        account:{
+                            login: "Logged in as ",
+                            logout: "Logout"
                         }
                     },
                     not_found: {
@@ -60,6 +80,78 @@ i18n
                     alerts:{
                         login_error: "Incorrect credentials.",
                         register_success: "Sign up successful.",
+                    }
+
+                }
+            },
+            it: {
+                translation: {
+                    footer: {
+                        line1: "OpenDictionary e OpenDictionary-Navigator sono software a costellazione creati da Fermitech Softworks sulla base di Gestione.",
+                        line2: "OpenDictionary-Navigator utilizza",
+                        line3: "sviluppata da Steffo."
+                    },
+                    root:{
+                        descriptions: {
+                            line1: "OpenDictionary Navigator è la webapp che ti fa esplorare dizionari personali.",
+                            blob: "Per visitare un'istanza, fornisci un indirizzo valido. Se a quell'indirizzo è attiva un'istanza di OpenDictionary, l'applicazione ti consentirà di connetterti ad essa."
+                        },
+                        form_names: {
+                            instance_address: "Indirizzo istanza"
+                        },
+                        status_msgs: {
+                            checking: "Verifica..."
+                        },
+                        buttons: {
+                            connect: "Connettiti",
+                        },
+                    },
+                    dashboard:{
+                        entry:{
+                            search: "Cerca per termine",
+                            search_label: "Termine:",
+                            loading: "Caricamento della definizione ...",
+                            part: "Elemento del",
+                            for: "per il",
+                            language: "",
+                            created: "Creato da ",
+                            create: "Aggiungi un nuovo termine",
+                            definition: "Definizione",
+                            term: "Termine",
+                            dictionary: "Dizionario",
+                            examples: "Esempi",
+                            create_btn: "Conia termine",
+                            edit: "Modifica di ",
+                            update_btn: "Aggiorna termine",
+                            conn: "Collegati all'istanza",
+
+                        },
+                        button:{
+                            search: "Cerca",
+                            back: "Torna al menu",
+                        },
+                        dictionaries:{
+                            list: "Dizionari disponibili",
+                            edit: "Modifica di ",
+                            create: "Crea un nuovo dizionario",
+                            name: "Nome",
+                            language: "Lingua",
+                            update_btn: "Aggiorna dizionario",
+                            create_btn: "Crea dizionario"
+                        },
+                        account:{
+                            login: "Accesso eseguito con ",
+                            logout: "Logout"
+                        }
+                    },
+                    not_found: {
+                        message1: "Durante la tua esplorazione della costellazione ti sei perso.",
+                        message2: "Il navigatore non può aiutarti a trovare qualcosa che non esiste.",
+                        message3: "Torna all'inizio.",
+                    },
+                    alerts:{
+                        login_error: "Credenziali errate.",
+                        register_success: "Registrazione completata.",
                     }
 
                 }

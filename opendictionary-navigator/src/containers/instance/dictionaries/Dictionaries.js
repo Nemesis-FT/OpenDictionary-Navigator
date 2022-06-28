@@ -24,9 +24,7 @@ export default function Dictionaries() {
     const [mode, setMode] = useState("create")
     const [target, setTarget] = useState(null);
 
-    useEffect(() => {
-        load()
-    }, [])
+    load()
 
     useEffect(() => {
         if(id!==null){
@@ -48,7 +46,7 @@ export default function Dictionaries() {
         setMode("create")
         setId(null);
         setTarget(null);
-
+        load();
     }
 
     async function load() {
@@ -64,7 +62,6 @@ export default function Dictionaries() {
         if (response.status === 200) {
             let values = await response.json()
             setDictionaries(values)
-            console.debug(values)
         }
     }
 

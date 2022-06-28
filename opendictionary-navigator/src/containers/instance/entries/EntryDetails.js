@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import {faGlasses} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ReactMarkdown from "react-markdown";
+import MDEditor from "@uiw/react-md-editor";
 
 export default function EntryDetails(props) {
     const {t, i18n} = useTranslation();
@@ -12,10 +13,10 @@ export default function EntryDetails(props) {
         <Panel style={{minWidth: "unset"}}>
             <Heading level={1}>{props.entry.term}</Heading>
             <Panel style={{minWidth: "unset"}}>
-                <i>{props.entry.definition}</i>
+                <MDEditor.Markdown source={props.entry.definition} style={{ whiteSpace: 'pre-wrap', background:"transparent"}} />
             </Panel>
             <Panel>
-                <ReactMarkdown>{props.entry.examples}</ReactMarkdown>
+                <MDEditor.Markdown source={props.entry.examples} style={{ whiteSpace: 'pre-wrap', background:"transparent"}} />
             </Panel>
             <hr/>
             <p>

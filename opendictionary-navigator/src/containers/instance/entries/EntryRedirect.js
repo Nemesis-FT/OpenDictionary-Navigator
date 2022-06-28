@@ -30,7 +30,7 @@ export default function EntryRedirect() {
     return (
         <div>
             <br/>
-            <a href={window.location.origin+"/od/"+url}> Connect to the instance </a>
+            <a href={window.location.origin+"/od/"+url}> {t("dashboard.entry.conn")} </a>
             {entry ? (
                 <Panel style={{minWidth: "unset"}}>
                     <Heading level={1}>{entry.term}</Heading>

@@ -44,27 +44,27 @@ export default function EntryEdit(props) {
     return (
         <div>
             <Panel style={{minWidth: "unset"}}>
-                <Heading level={1}>Editing {props.entry.term}</Heading>
+                <Heading level={1}>{t("dashboard.entry.edit")} {props.entry.term}</Heading>
                 <Form>
                     <Form.Row>
                         <Form.Field onSimpleChange={e => setTerm(e)} value={term} required={true}
-                                    placeholder={"..."} label={t("Term")}>
+                                    placeholder={"..."} label={t("dashboard.entry.term")}>
                         </Form.Field>
                     </Form.Row>
                 </Form>
-                <Heading level={3}>Definition</Heading>
+                <Heading level={3}>{t("dashboard.entry.definition")}</Heading>
                 <MDEditor
                     value={def}
                     onChange={setDef}
                 />
-                <Heading level={3}>Examples</Heading>
+                <Heading level={3}>E{t("dashboard.entry.examples")}</Heading>
                 <MDEditor
                     value={ex}
                     onChange={setEx}
                 />
             </Panel>
-            <Button bluelibClassNames={"color-lime"} onClick={() => {update()}}>
-                Update
+            <Button bluelibClassNames={"color-lime"} onClick={() => {update();}}>
+                {t("dashboard.entry.update_btn")}
             </Button>
         </div>
     )

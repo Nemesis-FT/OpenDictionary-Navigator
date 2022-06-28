@@ -57,22 +57,22 @@ export default function DictionaryEditor(props) {
             <Panel style={{minWidth: "unset"}}>
                 {props.mode === "edit" && (
                     <div>
-                    <Heading level={1}>Editing {props.dictionary.name}</Heading>
+                    <Heading level={1}>{t("dashboard.dictionary.edit")} {props.dictionary.name}</Heading>
 
                 </div>)
                 }
                 {props.mode === "create" && (
                     <div>
-                        <Heading level={1}>Create new dictionary</Heading>
+                        <Heading level={1}>{t("dashboard.dictionary.create")}</Heading>
                     </div>)
                 }
                 <Form>
                     <Form.Row>
                         <Form.Field onSimpleChange={e => setName(e)} value={name} required={true}
-                                    placeholder={"..."} label={t("Name")}>
+                                    placeholder={"..."} label={t("dashboard.dictionary.name")}>
                         </Form.Field>
                         <Form.Field onSimpleChange={e => setLang(e)} value={lang} required={true}
-                                    placeholder={"..."} label={t("Language")}>
+                                    placeholder={"..."} label={t("dashboard.dictionary.language")}>
                         </Form.Field>
                     </Form.Row>
                 </Form>
@@ -80,8 +80,8 @@ export default function DictionaryEditor(props) {
             <Button bluelibClassNames={"color-lime"} onClick={() => {
                 update()
             }}>
-                {props.mode === "edit" && ("Update")}
-                {props.mode === "create" && ("Create")}
+                {props.mode === "edit" && (t("dashboard.dictionary.update_btn"))}
+                {props.mode === "create" && (t("dashboard.dictionary.create_btn"))}
             </Button>
         </div>
     )

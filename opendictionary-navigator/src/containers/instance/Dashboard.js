@@ -22,7 +22,6 @@ export default function Dashboard() {
     const {mode, setMode} = useAppContext()
     const {loginWithRedirect, user, isAuthenticated, } = useAuth0();
 
-
     useEffect(() => {
         setInstanceIp(url)
         get_server_data(url)
@@ -42,10 +41,6 @@ export default function Dashboard() {
             let values = await response.json()
             setInstanceData(values)
         }
-    }
-
-    async function authenticate() {
-
     }
 
     return (
@@ -81,11 +76,9 @@ export default function Dashboard() {
                                 setMode("main")
                             }}>{t("dashboard.button.back")}</Button>
                         )}
-
                     </div>
-
             ) : (
-                <div></div>
+                <div/>
             )}
             <br/>
         </div>

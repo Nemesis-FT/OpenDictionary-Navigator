@@ -3,6 +3,7 @@ import {Panel, Button} from "@steffo/bluelib-react";
 import {useAuth0} from "@auth0/auth0-react";
 import schema from "../config";
 import {useAppContext} from "../../libs/Context";
+import {useTranslation} from "react-i18next";
 
 
 export default function ProfileBadge() {
@@ -11,6 +12,7 @@ export default function ProfileBadge() {
     const {instanceIp, setInstanceIp} = useAppContext()
     const {token, setToken} = useAppContext();
     const {userData, setUserData} = useAppContext();
+    const {t, i18n} = useTranslation();
 
     useEffect(() => {
         (async () => {
@@ -43,10 +45,10 @@ export default function ProfileBadge() {
         isAuthenticated &&
         <Panel>
             <Panel>
-                Logged in as {user.email}
+                {t("dashboard.account.login")} {user.email}
             </Panel>
             <Button onClick={() => logout({returnTo: window.location.origin})}>
-                Log Out
+                {t("dashboard.account.logout")}
             </Button>
         </Panel>
 
