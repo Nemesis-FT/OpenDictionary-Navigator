@@ -13,6 +13,7 @@ export default function Entry(props) {
     const {instanceIp, setInstanceIp} = useAppContext();
     const {userData, setUserData} = useAppContext();
     const [editable, setEditable] = useState(false);
+    const {token, setToken} = useAppContext();
 
     useEffect( () => {
             if(userData==null){
@@ -26,6 +27,22 @@ export default function Entry(props) {
             }
         }
         , [userData])
+
+    async function del(){
+        try {
+            const response = await fetch(schema + instanceIp + "/api/entry/v1/"+props.entry.id, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+            });
+            let data = await response.json()
+            console.debug(data)
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
     const data = {
         title: props.entry.term,

@@ -65,7 +65,11 @@ export default function Dashboard() {
                                 <Button onClick={()=>loginWithRedirect()}>Login</Button>)}
                             <ProfileBadge/>
                         </div>
-
+                        {mode !== "main" && (
+                            <Button onClick={event => {
+                                setMode("main")
+                            }}>{t("dashboard.button.back")}</Button>
+                        )}
                         {mode !== "dictionary" && (
                             <EntrySearcher setMode={setMode} mode={mode}/>
                         )}
